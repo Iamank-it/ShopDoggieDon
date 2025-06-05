@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoggieDon</title>
+    <link rel="icon" type="image/png" href="logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="logo.png" sizes="192x192">
+    <style>
+        /* Add circular style to favicon */
+        link[rel="icon"] {
+            border-radius: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <section class="section">
+        <div class="container">
+            <h2>Health And Wellness</h2>
+            <div class="line"></div>
+            <div class="card-container flex wrap">
+                <div class="card">
+                     <img src="images/medicine1.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Cani Coccus
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹379.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Cani Coccus', 379, 'images/medicine1.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/medicine2.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Vommate
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹250.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Vommate', 250, 'images/medicine2.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/medicine3.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Kennel Cough
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹185.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Kennel Cough', 185, 'images/medicine3.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/medicine4.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Boniheal
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹495.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Boniheal', 495, 'images/medicine4.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                 <div class="card">
+                     <img src="images/medicine5.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Himalaya Himpyrin
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹145.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Ball Pool', 145, 'images/medicine5.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

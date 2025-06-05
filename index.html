@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoggieDon</title>
+  <link rel="icon" type="image/png" href="logo.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="logo.png" sizes="192x192">
+  <style>
+    /* Add circular style to favicon */
+    link[rel="icon"] {
+      border-radius: 50%;
+      
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <!--Section Here-->
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-content  flex container">
+        <div>
+          <h3>Summer Fashion</h3>
+          <h1>New Collection</h1>
+          <h4>Big sale of this week up to <span>30%</span></h4>
+          <button onclick="location.href='#sale-shop'">Shop Now</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="Shop">
+      <h2>Shop By Category</h2>
+      <div class="line"></div>
+      <div class="category-container container">
+        <div class="category">
+          <img src="images/toy category1.jpeg">
+          <button onclick="location.href='toys.html'">Toys</button>
+        </div>
+        <div class="category">
+          <img src="images/medicine category.jpg">
+          <button onclick="location.href='medi.html'">Health and Wellness</button>
+        </div>
+        <div class="category">
+          <img src="images/food category.jpg">
+          <button onclick="location.href='food.html'">Food</button>
+        </div>
+        <div class="category">
+          <img src="images/accessory category.jpeg">
+          <button onclick="location.href='accessory.html'">Accessories</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>New Product</h2>
+        <div class="line"></div>
+        <div class="card-container flex wrap">
+          <div class="card">
+            <img src="images/accessory2.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Customized name collar belt
+              </p>
+              <div class="price">
+                <span class="amount">₹445.00</span>
+              </div>
+               <button class="add-to-cart" onclick="
+                addToCart('Customized Name Collar Belt', 445, 'images/accessory2.jpeg')
+                ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card sale">
+            <img src="images/accessory1.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Mouth cover
+              </p>
+              <div class="price">
+                <del>₹450.00</del>
+                <span class="amount">₹215.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+               addToCart('Mouth Cover', 215, 'images/accessory1.jpeg')
+               ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card new">
+            <img src="images/images.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Comfort Harness Vest & Leash
+              </p>
+              <div class="price">
+                <span class="amount">₹599.00</span>
+              </div>
+               <button class="add-to-cart" onclick="
+               addToCart('Comfort Harness Vest & Leash', 599, 'images/images.jpeg')
+               ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card new">
+            <img src="images/accessory3.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Customized Name Collar Belt
+              </p>
+              <div class="price">
+                <span class="amount">₹679.00</span>
+              </div>
+               <button class="add-to-cart" onclick="
+               addToCart('Customized Name Collar Belt', 679, 'images/accessory3.jpeg')
+               ">Add to Cart</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sale-container">
+        <h3>New Trend 2025</h3>
+        <h1>Dog's Collection</h1>
+        <div class="line"></div>
+        <h4>Big sale of this week</h4>
+        <button onclick="location.href='#sale-shop'">Shop Now</button>
+      </div>
+    </section>
+
+    <section class="section" id="sale-shop">
+      <div class="container">
+        <h2>Best Sale</h2>
+        <div class="line"></div>
+        <div class="card-container flex wrap">
+          <div class="card">
+            <img src="images/3_balls_pack.jpg">
+            <div class="card-content">
+              <p class="title">
+                Ball combo (Pack of 3)
+              </p>
+              <div class="price">
+                <span class="amount">₹159.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Balls Combo (Pack of 3)', 159, 'images/3_balls_pack.jpg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card new">
+            <img src="images/50_balls_combo.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Ball combo (Pack of 50 balls)
+              </p>
+              <div class="price">
+                <span class="amount">₹369.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Balls Combo (Pack of 50)', 369, 'images/50_balls_combo.jpeg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card">
+            <img src="images/Ball_poll.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Ball poll
+              </p>
+              <div class="price">
+                <span class="amount">₹699.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Ball Pool', 699, 'images/Ball_poll.jpeg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card sale">
+            <img src="images/chew_ball_blue.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Chew Ball
+              </p>
+              <div class="price">
+                <del>₹350</del>
+                <span class="amount">₹129.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Chew Ball', 129, 'images/chew_ball_blue.jpeg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-container flex wrap">
+          <div class="card sale">
+            <img src="images/red_shopping_bag.jpg">
+            <div class="card-content">
+              <p class="title">
+                Shopping Bag
+              </p>
+              <div class="price">
+                <del>₹259</del>
+                <span class="amount">₹59.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Shopping Bag', 59, 'images/red_shopping_bag.jpg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card new">
+            <img src="images/softtoy_yellow_boneshape.avif">
+            <div class="card-content">
+              <p class="title">
+                Soft Toy
+              </p>
+              <div class="price">
+                <span class="amount">₹99.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Soft Toy', 99, 'images/softtoy_yellow_boneshape.avif')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card">
+            <img src="images/Rope_and_ball.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Rope and Ball
+              </p>
+              <div class="price">
+                <span class="amount">₹229.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Rope and Ball', 229, 'images/Rope_and_ball.jpeg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+          <div class="card sale">
+            <img src="images/accessory4.jpeg">
+            <div class="card-content">
+              <p class="title">
+                Collar Belt
+              </p>
+              <div class="price">
+                <del>₹599</del>
+                <span class="amount">₹159.00</span>
+              </div>
+              <button class="add-to-cart" onclick="
+              addToCart('Collar Belt', 159, 'images/accessory4.jpeg')
+              ">Add to Cart</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secondary-bg">
+        <div class="container flex wrap">
+          <div class="box">
+            <i class="fa-solid fa-truck"></i>
+            <h5>
+              <a href="#">Free Shipping</a>
+            </h5>
+            <p class="des">Free shipping on order over ₹99</p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-money-bill-1"></i>
+            <h5>
+              <a href="#">Cash On Delivery</a>
+            </h5>
+            <p class="des">The Internet Trend To Repeat</p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-gift"></i>
+            <h5>
+              <a href="#">Gift For All</a>
+            </h5>
+            <p class="des">Receive Gift When Subscribe</p>
+          </div>
+          <div class="box">
+            <i class="fa-solid fa-clock"></i>
+            <h5>
+              <a href="#">Opening All Week</a>
+            </h5>
+            <p class="des">6:00am - 7:00pm</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section" id="blog">
+      <div class="container">
+        <h2>New Latest Blogs</h2>
+        <div class="line"></div>
+
+        <div class="blog-container flex wrap">
+          <div class="blog-box">
+            <img src="images/blog1.jpeg">
+            <div class="blog-content">
+              <h3 class="heading">
+                <a href="#">New Blogs 2025</a>
+              </h3>
+              <p class="des">Dogs are loyal, loving companions who bring joy and energy to every home. From playful fetch sessions to warm cuddles, their presence is pure happiness. Treat them with care, and they’ll be your best friend for life!</p>
+              <a href="#" class="blog-link">Read More</a>
+            </div>
+          </div>
+          <div class="blog-box">
+            <img src="images/play.jpeg">
+            <div class="blog-content">
+              <h3 class="heading">
+                <a href="#">New Blogs 2025</a>
+              </h3>
+              <p class="des">Playing with your dog strengthens your bond and keeps them active and happy. Games like fetch, tug-of-war, or a simple run in the park bring joy and exercise to both of you. A playful dog is a healthy dog!</p>
+              <a href="#" class="blog-link">Read More</a>
+            </div>
+          </div>
+          <div class="blog-box">
+            <img src="images/blog2.webp">
+            <div class="blog-content">
+              <h3 class="heading">
+                <a href="#">New Blogs 2025</a>
+              </h3>
+              <p class="des">Giving your dog the right medicine is crucial for their health. Always consult a vet before giving any treatment, even for common issues like ticks or fever. Proper dosage and timing keep your furry friend safe and strong!</p>
+              <a href="#" class="blog-link">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="secondary-bg">
+        <form class="container flex wrap">
+          <h3>Sign up for send Newsletter</h3>
+
+          <div class="input-container flex">
+            <input type="email" name="email" id="email" placeholder="Your Email" autocomplete="off">
+            <button>Subscribe</button>
+          </div>
+          <div class="social-icons flex">
+            <a href="#" class="media">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a href="#" class="media">
+              <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a href="#" class="media">
+              <i class="fa-brands fa-google"></i>
+            </a>
+            <a href="#" class="media">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="media">
+              <i class="fa-brands fa-square-instagram"></i>
+            </a>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!--Footer Here-->
+  <footer>
+    <div class="footer-container container flex wrap">
+      <ul class="footer-list">
+        <li>
+          <a href="#" class="footer-link">About Us</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Online store</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">blog</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Contact Us</a>
+        </li>
+      </ul>
+      <ul class="footer-list">
+        <li>
+          <a href="#" class="footer-link">login / register</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">your cart</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">wishlist items</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Your Checkout</a>
+        </li>
+      </ul>
+      <ul class="footer-list">
+        <li>
+          <a href="#" class="footer-link">FAQs</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">term of services</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">privacy policy</a>
+        </li>
+        <li>
+          <a href="#" class="footer-link">Returns</a>
+        </li>
+      </ul>
+      <ul class="footer-list">
+        <li class="footer-logo">
+          <img src="logo.png" alt="DoggieDon">
+          <a href="#" class="logo">
+            <span>Doggie<span>Don</span></span>
+          </a>
+        </li>
+        <li>
+          <p class="detail">Adityapur, Jamshedpur</p>
+        </li>
+        <li>
+          <p class="detail">+91 9608898298</p>
+        </li>
+        <li>
+          <p class="detail">doggiedon@gmail.com</p>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        Copyright &copy;2025
+        <a href="#" class="footer-link">DoggieDon</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="cart.js"></script>
+  <script src="navbar.js"></script>
+</body>
+
+</html>

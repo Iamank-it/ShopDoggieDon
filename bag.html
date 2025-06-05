@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DoggieDon</title>
+  <link rel="icon" type="image/png" href="logo.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="logo.png" sizes="192x192">
+  <style>
+    /* Add circular style to favicon */
+    link[rel="icon"] {
+      border-radius: 50%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Navbar placeholder -->
+  <div id="navbar-placeholder"></div>
+
+  <h2>Items in Your Cart</h2>
+  <div id="cartContainer"></div>
+  <div class="total" id="totalPrice"></div>
+  <button id="payNowBtn" class="payment-btn" style="display: none;" onclick="goToPayment()">
+    Proceed To Payment
+  </button>
+
+  <script src="cart.js"></script>
+  <script src="navbar.js"></script>
+  <script>
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const container = document.getElementById("cartContainer");
+      const totalPriceDiv = document.getElementById("totalPrice");
+      const payNowBtn = document.getElementById("payNowBtn");
+      container.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        totalPriceDiv.textContent = "";
+        payNowBtn.style.display = "none";
+        updateCartCount();
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const div = document.createElement("div");
+        div.className = "cart-item";
+        div.innerHTML = `
+          <img src="${item.image}" alt="${item.name}">
+          <div class="item-details">
+            <h4>${item.name}</h4>
+            <p>Price: ₹${item.price}</p>
+            <p>Quantity: ${item.quantity}</p>
+            <p>Total: ₹${itemTotal}</p>
+          </div>
+          <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        container.appendChild(div);
+      });
+
+      totalPriceDiv.textContent = "Total Price: ₹" + total;
+      payNowBtn.style.display = "block";
+      localStorage.setItem("totalAmount", total);
+      
+      updateCartCount();
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      renderCart();
+      updateCartCount();
+    });
+
+    function removeFromCart(index) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function goToPayment() {
+      window.location.href = "payment.html";
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartCount = document.querySelector(".cart-count");
+      cartCount.textContent = cart.length;
+    }
+  </script>
+</body>
+
+</html>

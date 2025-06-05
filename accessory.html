@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DoggieDon</title>
+    <link rel="icon" type="image/png" href="logo.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="logo.png" sizes="192x192">
+    <style>
+        /* Add circular style to favicon */
+        link[rel="icon"] {
+            border-radius: 50%;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <section class="section">
+        <div class="container">
+            <h2>Accessories</h2>
+            <div class="line"></div>
+            <div class="card-container flex wrap">
+                <div class="card">
+                     <img src="images/accessory category.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Vest Harness
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹645.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Vest Harness', 645, 'images/accessory category.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/accessory1.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Mouth Cover
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹215.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Mouth Cover', 215, 'images/accessory1.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/accessory2.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Customized Name Collar Belt
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹559.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Customized Name Collar Belt', 559, 'images/accessory2.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="images/accessory3.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Customized Name Collar Belt(Designer)
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹799.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Customized Name Collar Belt(Designer)', 799, 'images/accessory3.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+                 <div class="card">
+                     <img src="images/accessory4.jpeg">
+                    <div class="card-content">
+                        <p class="title">
+                            Collar Belt
+                        </p>
+                        <div class="price">
+                            <span class="amount">₹399.00</span>
+                        </div>
+                        <button class="add-to-cart" onclick="
+                        addToCart('Collar Belt', 399, 'images/accessory4.jpeg')
+                        ">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="cart.js"></script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

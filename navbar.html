@@ -1,0 +1,62 @@
+<!-- Navbar -->
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <img src="logo.png" alt="Dogidon Logo">
+                <span>Doggie<span>Don</span></span>
+            </a>
+        </div>
+        
+       
+        <ul class="navlist">
+            <li><a href="index.html" class="link" id="home-link">Home</a></li>
+            <li><a href="index.html#Shop" class="link" id="shop-link">Shop</a></li>
+            <li><a href="index.html#blog" class="link" id="blog-link">Blog</a></li>
+            <li><a href="contact.html" class="link" id="contact-link">Contact</a></li>
+        </ul>
+
+        <div class="icons">
+            <a href="#" class="icon"><i class="fas fa-search"></i></a>
+            <a href="#" class="icon"><i class="fas fa-user"></i></a>
+            <a href="bag.html" class="icon cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+         <div class="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+
+    </nav>
+</header>
+
+<script>
+// Function to set active link based on current page
+function setActiveLink() {
+    const currentPage = window.location.pathname.split('/').pop();
+    const links = {
+        'index.html': 'home-link',
+        'toys.html': 'shop-link',
+        'food.html': 'shop-link',
+        'medi.html': 'shop-link',
+        'accessory.html': 'shop-link',
+        'contact.html': 'contact-link'
+    };
+    
+    // Remove all active classes first
+    document.querySelectorAll('.link').forEach(link => link.classList.remove('link-active'));
+    
+    // Add active class to current page link
+    const activeLinkId = links[currentPage];
+    if (activeLinkId) {
+        const activeLink = document.getElementById(activeLinkId);
+        if (activeLink) {
+            activeLink.classList.add('link-active');
+        }
+    }
+}
+
+// Set active link when navbar loads
+document.addEventListener('DOMContentLoaded', setActiveLink);
+</script> 

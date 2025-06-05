@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - DoggieDon</title>
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <main class="payment-container">
+        <div class="payment-box">
+            <h2>Complete Your Purchase</h2>
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div id="orderItems"></div>
+                <div class="total-amount">
+                    <h4>Total Amount: ₹<span id="totalAmount">0</span></h4>
+                </div>
+            </div>
+
+            <form id="payment-form" class="payment-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required pattern="[0-9]{10}">
+                </div>
+                <div class="form-group">
+                    <label for="address">Delivery Address</label>
+                    <textarea id="address" required></textarea>
+                </div>
+                
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <span>Credit/Debit Card</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi">
+                            <span>UPI</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Card Payment Form -->
+                <div id="card-payment-form" class="payment-details">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <div class="card-input-group">
+                            <input type="text" id="cardNumber" maxlength="19" placeholder="1234 5678 9012 3456" required>
+                            <i class="fa-solid fa-credit-card"></i>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="expiry">Expiry Date</label>
+                            <input type="text" id="expiry" maxlength="5" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="password" id="cvv" maxlength="3" placeholder="123" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPI Payment Form -->
+                <div id="upi-payment-form" class="payment-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="upiId">UPI ID</label>
+                        <div class="upi-input-group">
+                            <input type="text" id="upiId" placeholder="example@upi" required>
+                            <i class="fa-solid fa-mobile-screen"></i>
+                        </div>
+                    </div>
+                    <div class="upi-apps">
+                        <h4>Popular UPI Apps</h4>
+                        <div class="upi-app-icons">
+                            <button type="button" class="upi-app-btn" data-app="gpay">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Google_Pay_Logo.svg/512px-Google_Pay_Logo.svg.png" alt="Google Pay">
+                            </button>
+                            <button type="button" class="upi-app-btn" data-app="phonepe">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/PhonePe_Logo.svg/512px-PhonePe_Logo.svg.png" alt="PhonePe">
+                            </button>
+                            <button type="button" class="upi-app-btn" data-app="paytm">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Paytm_Logo_%28standalone%29.svg/512px-Paytm_Logo_%28standalone%29.svg.png" alt="Paytm">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="pay-button" class="pay-button">Pay Now</button>
+            </form>
+
+            <!-- OTP Modal -->
+            <div id="otp-modal" class="modal">
+                <div class="modal-content">
+                    <h3>Enter OTP</h3>
+                    <p>A 6-digit OTP has been sent to your phone number</p>
+                    <div class="otp-input-group">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                    </div>
+                    <div class="otp-timer">Resend OTP in <span id="timer">30</span>s</div>
+                    <button type="button" id="verify-otp" class="verify-button">Verify & Pay</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="cart.js"></script>
+    <script src="navbar.js"></script>
+    <script>
+        // Get total amount from localStorage
+        const totalAmount = localStorage.getItem("totalAmount") || 0;
+        document.getElementById("totalAmount").textContent = totalAmount;
+
+        // Display order items
+        function displayOrderItems() {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const orderItemsDiv = document.getElementById("orderItems");
+            orderItemsDiv.innerHTML = "";
+
+            cart.forEach(item => {
+                const itemDiv = document.createElement("div");
+                itemDiv.className = "order-item";
+                itemDiv.innerHTML = `
+                    <p>${item.name} x ${item.quantity}</p>
+                    <p>₹${item.price * item.quantity}</p>
+                `;
+                orderItemsDiv.appendChild(itemDiv);
+            });
+        }
+
+        // Update cart count in navbar
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = document.querySelector('.cart-count');
+            if (!cartCount) return;
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                cartCount.textContent = totalItems;
+                cartCount.style.display = 'flex';
+            } else {
+                cartCount.style.display = 'none';
+            }
+        }
+
+        // Call updateCartCount when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            displayOrderItems();
+        });
+
+        // Update cart count when items are removed
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayOrderItems();
+            updateCartCount();
+        }
+
+        // Handle payment method selection
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardForm = document.getElementById('card-payment-form');
+                const upiForm = document.getElementById('upi-payment-form');
+                
+                if (this.value === 'upi') {
+                    cardForm.style.display = 'none';
+                    upiForm.style.display = 'block';
+                } else {
+                    cardForm.style.display = 'block';
+                    upiForm.style.display = 'none';
+                }
+            });
+        });
+
+        // Handle payment submission
+        document.getElementById('pay-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Get payment method
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            const payButton = document.getElementById('pay-button');
+            
+            // Show loading state
+            payButton.classList.add('loading');
+            payButton.disabled = true;
+
+            // Process based on payment method
+            if (paymentMethod === 'card') {
+                // Get card details
+                const cardNumber = document.getElementById('cardNumber').value.replace(/\s+/g, '');
+                const expiry = document.getElementById('expiry').value;
+                const cvv = document.getElementById('cvv').value;
+
+                // Validate card number
+                if (!cardNumber || cardNumber.length !== 16) {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Please enter a valid 16-digit card number');
+                    return;
+                }
+
+                // Validate expiry date
+                if (!expiry || !/^\d{2}\/\d{2}$/.test(expiry)) {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Please enter a valid expiry date (MM/YY)');
+                    return;
+                }
+
+                // Validate CVV
+                if (!cvv || !/^\d{3}$/.test(cvv)) {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Please enter a valid 3-digit CVV');
+                    return;
+                }
+
+                // Check for expired card
+                const [month, year] = expiry.split('/');
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear() % 100;
+                const currentMonth = currentDate.getMonth() + 1;
+                
+                if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Card has expired');
+                    return;
+                }
+
+                // Check for declined card
+                if (cardNumber === '4111 1111 1111 1111') {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Card declined. Please try another card.');
+                    return;
+                }
+
+                // Simulate payment processing
+                setTimeout(() => {
+                    // Show success message
+                    const modal = document.getElementById('otp-modal');
+                    modal.innerHTML = `
+                        <div class="modal-content">
+                            <i class="fa-solid fa-circle-check" style="color: #4CAF50; font-size: 48px; margin-bottom: 1rem;"></i>
+                            <h3>Payment Successful!</h3>
+                            <p>Your card payment has been processed successfully.</p>
+                            <p>Transaction ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                            <p>Amount: ₹${document.getElementById('totalAmount').textContent}</p>
+                            <div style="margin-top: 1rem;">
+                                <button onclick="completePayment()" style="background: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Continue Shopping</button>
+                            </div>
+                        </div>
+                    `;
+                    modal.style.display = 'flex';
+                    
+                    // Reset button state
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                }, 2000);
+
+            } else {
+                // UPI payment logic
+                const upiId = document.getElementById('upiId').value;
+                if (!upiId || !upiId.includes('@')) {
+                    payButton.classList.remove('loading');
+                    payButton.disabled = false;
+                    alert('Please enter a valid UPI ID');
+                    return;
+                }
+                showOTPModal();
+                payButton.classList.remove('loading');
+                payButton.disabled = false;
+            }
+        });
+
+        // Function to complete payment
+        function completePayment() {
+            localStorage.removeItem('cart');
+            localStorage.removeItem('totalAmount');
+            updateCartCount(); // Update count before redirecting
+            window.location.href = 'index.html';
+        }
+
+        // Format card number
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            value = value.slice(0, 16);
+            let formattedValue = '';
+            for(let i = 0; i < value.length; i++) {
+                if(i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+            e.target.value = formattedValue;
+        });
+
+        // Format expiry date
+        document.getElementById('expiry').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            if (value.length >= 2) {
+                let month = parseInt(value.slice(0, 2));
+                if (month > 12) month = 12;
+                if (month < 1) month = 1;
+                value = month.toString().padStart(2, '0') + '/' + value.slice(2);
+            }
+            e.target.value = value;
+        });
+
+        // Prevent form submission on enter
+        document.getElementById('payment-form').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('otp-modal');
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Handle UPI app selection
+        document.querySelectorAll('.upi-app-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const app = this.dataset.app;
+                const upiId = document.getElementById('upiId');
+                switch(app) {
+                    case 'gpay':
+                        upiId.value = 'example@okaxis';
+                        break;
+                    case 'phonepe':
+                        upiId.value = 'example@ybl';
+                        break;
+                    case 'paytm':
+                        upiId.value = 'example@paytm';
+                        break;
+                }
+            });
+        });
+
+        // OTP handling
+        const otpInputs = document.querySelectorAll('.otp-input');
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', function(e) {
+                if (e.target.value.length === 1) {
+                    if (index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                }
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                }
+            });
+        });
+
+        // Timer for OTP
+        function startTimer() {
+            let timeLeft = 30;
+            const timerSpan = document.getElementById('timer');
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerSpan.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    document.querySelector('.otp-timer').innerHTML = 
+                        '<button type="button" onclick="resendOTP()" class="resend-btn">Resend OTP</button>';
+                }
+            }, 1000);
+        }
+
+        function resendOTP() {
+            alert('New OTP sent! (Demo OTP: 123456)');
+            document.querySelector('.otp-timer').innerHTML = 
+                'Resend OTP in <span id="timer">30</span>s';
+            startTimer();
+        }
+
+        // Show OTP modal with timer
+        function showOTPModal() {
+            const modal = document.getElementById('otp-modal');
+            // Reset modal content
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h3>Enter OTP</h3>
+                    <p>A 6-digit OTP has been sent to your phone number</p>
+                    <div class="otp-input-group">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                        <input type="text" maxlength="1" pattern="[0-9]" inputmode="numeric" class="otp-input">
+                    </div>
+                    <div class="otp-timer">Resend OTP in <span id="timer">30</span>s</div>
+                    <button type="button" id="verify-otp" class="verify-button">Verify & Pay</button>
+                </div>
+            `;
+            modal.style.display = 'flex';
+            startTimer();
+            
+            // Reattach OTP input handlers
+            const newOtpInputs = modal.querySelectorAll('.otp-input');
+            newOtpInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    if (e.target.value.length === 1) {
+                        if (index < newOtpInputs.length - 1) {
+                            newOtpInputs[index + 1].focus();
+                        }
+                    }
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        newOtpInputs[index - 1].focus();
+                    }
+                });
+            });
+            
+            // Reattach verify button handler
+            modal.querySelector('#verify-otp').addEventListener('click', async function() {
+                const verifyButton = this;
+                const enteredOTP = Array.from(newOtpInputs).map(input => input.value).join('');
+                
+                if (enteredOTP.length !== 6) {
+                    alert('Please enter complete OTP');
+                    return;
+                }
+
+                verifyButton.classList.add('loading');
+                verifyButton.disabled = true;
+                
+                try {
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+                    
+                    if (enteredOTP === '123456') {
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        
+                        modal.innerHTML = `
+                            <div class="modal-content">
+                                <i class="fa-solid fa-circle-check" style="color: #4CAF50; font-size: 48px; margin-bottom: 1rem;"></i>
+                                <h3>Payment Successful!</h3>
+                                <p>Your UPI payment has been processed successfully.</p>
+                                <p>Order ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}</p>
+                                <p>Amount: ₹${document.getElementById('totalAmount').textContent}</p>
+                                <button onclick="completePayment()" style="margin-top: 1rem;">Continue Shopping</button>
+                            </div>
+                        `;
+                    } else {
+                        throw new Error('Invalid OTP. Please try again. (Demo OTP: 123456)');
+                    }
+                } catch (error) {
+                    alert(error.message);
+                    newOtpInputs.forEach(input => input.value = '');
+                    newOtpInputs[0].focus();
+                } finally {
+                    verifyButton.classList.remove('loading');
+                    verifyButton.disabled = false;
+                }
+            });
+        }
+    </script>
+</body>
+</html>
